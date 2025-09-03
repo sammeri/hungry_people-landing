@@ -1,0 +1,339 @@
+// Карта брейкпоинтов
+$breakpoints: (
+    xs: 0,
+    sm: 576px,
+    md: 768px,
+    lg: 992px,
+    xl: 1200px,
+    xxl: 1420px
+);
+
+@mixin respond-to($breakpoint) {
+    @if map-has-key($breakpoints, $breakpoint) {
+        @media (max-width: map-get($breakpoints, $breakpoint)) {
+            @content;
+        }
+    }
+}
+
+// ====== Адаптив ======
+// HEADER
+.header {
+    @include respond-to(xxl) {
+        padding: 0 40px;
+
+        &__top__nav {
+            height: auto;
+
+            &__links {
+                width: auto;
+                justify-content: center;
+                flex-wrap: nowrap;
+
+                a {
+                    width: auto;
+                    padding: 20px 26px;
+                    font-size: 14px;
+                }
+            }
+
+            .img__container {
+                margin: 20px 0;
+                width: 100px;
+                height: auto;
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                    top: 0;
+                }
+            }
+        }
+
+        &__body {
+            justify-content: center;
+
+            .center {
+                h1 {
+                    font-size: 52px;
+                    line-height: 72px;
+                }
+                p {
+                    letter-spacing: 4px;
+                }
+                .btn-container {
+                    gap: 16px;
+                    &__btn-table,
+                    &__btn-explore {
+                        text-wrap: nowrap;
+                        padding: 12px;
+                        width: 100%;
+                        margin: 0;
+                    }
+                }
+            }
+        }
+    }
+
+    @include respond-to(lg) {
+        &__top {
+            position: relative;
+
+            &__nav {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+
+                &__links {
+                    &:nth-child(1) {
+                        top: 0;
+                    }
+                    display: none;
+                    position: absolute;
+                    top: 134%;
+                    right: -40px;
+                    width: calc(100% + 80px);
+                    height: auto;
+                    flex-direction: column;
+                    align-items: center;
+                    background: rgba(255, 255, 255, 0.2);
+                    backdrop-filter: blur(12px);
+                    -webkit-backdrop-filter: blur(12px);
+
+                    padding: 20px 0;
+                    border: none;
+                    // border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+
+                    a {
+                        padding: 12px 0;
+                        font-size: 16px;
+                        width: 50%;
+                        text-align: center;
+                    }
+
+                    &.active {
+                        display: flex; // показываем меню при клике
+                    }
+                }
+            }
+
+            // кнопка-бургер
+            .burger {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                cursor: pointer;
+                width: 30px;
+                height: 24px;
+                z-index: 200;
+
+                span {
+                    height: 3px;
+                    width: 100%;
+                    background: #fff;
+                    margin: 3px 0;
+                    border-radius: 2px;
+                    transition: all 0.3s ease;
+                }
+
+                &.active {
+                    span:nth-child(1) {
+                        transform: rotate(45deg) translate(5px, 5px);
+                    }
+                    span:nth-child(2) {
+                        opacity: 0;
+                    }
+                    span:nth-child(3) {
+                        transform: rotate(-45deg) translate(6px, -6px);
+                    }
+                }
+            }
+        }
+
+        &__body {
+            .left,
+            .right {
+                display: none; // убираем боковые элементы
+            }
+        }
+    }
+}
+
+@include respond-to(md) {
+}
+
+@include respond-to(sm) {
+    .center {
+        padding-top: 100px;
+        h1 {
+            font-size: 36px;
+            line-height: 48px;
+        }
+    }
+}
+.main {
+    .form {
+        @include respond-to(lg) {
+            padding: 0 20px;
+
+            &__container {
+                &__text {
+                    width: 100%;
+                    margin: 0;
+                }
+
+                &__image {
+                    display: none;
+                    &::before {
+                        display: none;
+                    }
+                    img {
+                        display: none;
+                    }
+                }
+            }
+        }
+
+        &.events {
+            @include respond-to(lg) {
+                display: none;
+            }
+        }
+    }
+
+    // ABOUT
+    .about {
+        @include respond-to(lg) {
+            flex-direction: column;
+            padding: 20px;
+            &__text,
+            &__image {
+                width: 100%;
+            }
+            &__image {
+                padding: 0;
+                &::after {
+                    display: none;
+                }
+                img {
+                    display: none;
+                }
+            }
+        }
+    }
+
+    // BOOK
+    .book {
+        @include respond-to(lg) {
+            &__image {
+                display: none;
+            }
+        }
+
+        @include respond-to(md) {
+            flex-direction: column;
+            padding: 40px 20px;
+            &__text,
+            &__image {
+                width: 100%;
+                margin: 20px 0;
+            }
+        }
+
+        @include respond-to(sm) {
+            &__text {
+                &__form-group {
+                    padding: 0;
+                    justify-content: center;
+                    gap: 12px;
+
+                    &__item {
+                        width: 100%;
+                        margin: 0;
+                    }
+                }
+            }
+        }
+    }
+
+    // MENU
+    .menu {
+        @include respond-to(xxl) {
+            padding: 40px 20px;
+
+            &__title {
+                padding: 0;
+            }
+
+            &__items {
+                // flex-wrap: wrap;
+                // height: auto;
+                // gap: 6px;
+                &__item {
+                    flex: 1 1 45%;
+                    // border: 1px solid #5e5e5e;
+                    // border-radius: 16px;
+                    // margin: 5px 0;
+                }
+            }
+
+            &__price {
+                // flex-direction: column;
+                &__position {
+                    justify-content: center;
+                    gap: 16px;
+                    width: 100%;
+                    padding: 10px;
+                }
+            }
+        }
+
+        @include respond-to(md) {
+            padding: 40px 20px;
+
+            &__title {
+                padding: 0;
+            }
+
+            &__items {
+                flex-wrap: wrap;
+                height: auto;
+                gap: 6px;
+                &__item {
+                    flex: 1 1 45%;
+                    border: 1px solid #5e5e5e;
+                    border-radius: 16px;
+                    margin: 5px 0;
+                }
+            }
+
+            &__price {
+                flex-direction: column;
+                &__position {
+                    width: 100%;
+                    padding: 10px;
+                }
+            }
+        }
+    }
+
+    // CONTACT
+    .contact {
+        @include respond-to(xxl) {
+            padding: 40px 20px;
+            &__title {
+                padding: 0;
+            }
+            &__body {
+                flex-direction: column;
+                &__items,
+                &__contacts,
+                &__btn-send {
+                    padding: 0;
+                    width: 100%;
+                    margin-bottom: 15px;
+                }
+            }
+        }
+    }
+}
